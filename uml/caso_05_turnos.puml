@@ -1,0 +1,40 @@
+@startuml caso_05_turnos
+
+skinparam ClassAttributeIconSize 0
+skinparam Style strictuml
+skinparam BackgroundColor #F4F6F9
+skinparam ClassBackgroundColor #FFFFFF
+skinparam ClassBorderColor #5D6D7E
+skinparam ClassFontName "Outfit"
+skinparam ClassFontSize 12
+
+class Persona {
+    - _nombre : str
+    - _documento : str
+    + __init__(nombre: str, documento: str)
+    + nombre : str <<property>>
+    + documento : str <<property>>
+}
+
+class Turno {
+    - _persona : Persona
+    - _numero : int
+    + __init__(persona: Persona, numero: int)
+    + persona : Persona <<property>>
+    + numero : int <<property>>
+}
+
+class CajaAtencion {
+    - _cola_turnos : list[Turno]
+    - _consecutivo : int
+    + __init__()
+    + agregar_persona(persona: Persona) : Turno
+    + atender_siguiente() : Turno | None
+    + esta_vacia() : bool
+    + proximo_turno() : Turno | None
+}
+
+Turno "1" *--> "1" Persona : referencia
+CajaAtencion "1" o--> "*" Turno : gestiona
+
+@enduml
